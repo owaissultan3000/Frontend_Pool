@@ -16,12 +16,12 @@ import {USERS_API_URL} from "../Constants/index";
 
 
  
-const getArticlesFromApi = async () => {
+const getLoginToken = async (email,password) => {
   const url = `${USERS_API_URL + "UserLogin"}`
   console.log(url);
 
-  const input = { "userEmail": "k180209@nu.edu.pk",
-                 "userPassword": "qwerty123" };
+  const input = { "userEmail": email, "userPassword": password };
+                 
 
                  axios.post(url,input)
                  .then((res) => console.log(res.data))
@@ -33,11 +33,9 @@ export default function SigninForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const submitValue = () => {
-    getArticlesFromApi()
-    // console.log(email, password);
-    // getRequest(email, password);
-    // setEmail('');
-    // setPassword('');
+    getLoginToken(email,password)
+    setEmail('');
+    setPassword('');
     Keyboard.dismiss()
   }
   
@@ -54,7 +52,7 @@ export default function SigninForm() {
       <View style={styles.inputView}>
         <TextInput
           style={styles.TextInput}
-          placeholder="Email Format (18kXXXX@nu.edu.pk)"
+          placeholder="Email Format (k18XXXX@nu.edu.pk)"
           placeholderTextColor="#003f5c"
           value = {email}
           onChangeText={(email) => setEmail(email)}
