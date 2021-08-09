@@ -4,22 +4,43 @@ import {
   StyleSheet,
   Text,
   View,
-  Image,
+  Picker,
   TextInput,
   Button,
   Keyboard,
   TouchableOpacity,
 } from "react-native";
+
+import axios from "axios";
+import {USERS_API_URL} from "../Constants/index";
+
+
  
+const getArticlesFromApi = async () => {
+  const url = `${USERS_API_URL + "UserLogin"}`
+  console.log(url);
+
+  const input = { "userEmail": "k180209@nu.edu.pk",
+                 "userPassword": "qwerty123" };
+
+                 axios.post(url,input)
+                 .then((res) => console.log(res.data))
+                .catch((err) => console.log(err));
+
+ 
+};
 export default function SigninForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const submitValue = () => {
-    console.log(email, password);
-    setEmail('');
-    setPassword('');
+    getArticlesFromApi()
+    // console.log(email, password);
+    // getRequest(email, password);
+    // setEmail('');
+    // setPassword('');
     Keyboard.dismiss()
   }
+  
  
   return (
     <View style={styles.container}>
@@ -51,6 +72,7 @@ export default function SigninForm() {
         />
       </View>
  
+ 
       <TouchableOpacity>
         <Text style={styles.forgot_button}>Forgot Password?</Text>
       </TouchableOpacity>
@@ -79,6 +101,22 @@ const styles = StyleSheet.create({
       alignItems: "center",
       justifyContent: "center",
     },
+    picker: {
+      backgroundColor: '#2AAA8A',
+      borderRadius: 15,
+      color: '#2AAA8A',
+      marginTop: 20,
+      marginLeft: 0,
+      height: 45,
+      width: 300,
+      
+    },
+    pickertxt: {
+      color:"white",
+      marginTop: 20,
+      width: "70%",
+      
+    },
    
     subText:{
         fontSize:18,
@@ -98,11 +136,12 @@ const styles = StyleSheet.create({
    
     inputView: {
       backgroundColor: '#2AAA8A',
-      borderRadius: 30,
+      borderRadius: 15,
       width: "70%",
       height: 45,
       marginBottom: 20,
       marginTop: 20,
+      
     
     },
    
@@ -112,6 +151,9 @@ const styles = StyleSheet.create({
       padding: 10,
       marginLeft: 20,
       color: 'white',
+      fontSize: 15,
+      fontWeight: '400',
+      // placeholderTextColor: '#333'
       
     },
    
@@ -119,6 +161,7 @@ const styles = StyleSheet.create({
       height: 30,
       marginBottom: 30,
       color: 'white',
+      marginTop: 20,
     },
    
     loginBtn: {
@@ -136,4 +179,5 @@ const styles = StyleSheet.create({
       color:"#2AAA8A",
       marginTop:50, 
     },
+    
   });
