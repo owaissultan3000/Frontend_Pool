@@ -1,25 +1,81 @@
-import React, { Component } from 'react'
-import SigninForm from './Components/SigninForm'
-import Registration from './Components/Registration'
-import { StyleSheet, Text, View, TouchableHighlight } from 'react-native';
+// Example of Splash, Login and Sign Up in React Native
+// https://aboutreact.com/react-native-login-and-signup/
+import 'react-native-gesture-handler';
 
+// Import React and Component
+import React from 'react';
 
-export class App extends Component {
-  render() {
+// Import Navigators from React Navigation
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-    return (
+// Import Screens
+import Splash from './Screens/SplashScreen';
+import LoginScreen from './Screens/LoginScreen';
+import RegistrationScreen from './Screens/RegistrationScreen';
+import Home from './Screens/Home';
+
+const Stack = createStackNavigator();
+
+const Auth = () => {
+  // Stack Navigator for Login and Sign up Screen
+  return (
+    <Stack.Navigator initialRouteName="LoginScreen">
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegistrationScreen}
+        options={{
+          title: 'Register', //Set Header Title
+          headerStyle: {
+            backgroundColor: '#307ecc', //Set Header color
+          },
+          headerTintColor: '#fff', //Set Header text color
+          headerTitleStyle: {
+            fontWeight: 'bold', //Set Header text style
+          },
+        }}
+      />
       
-     
-       <SigninForm/>
-     
-        // <Registration/>
-      
-    )
-  }
-}
+    </Stack.Navigator>
+  );
+};
 
+const App = () => {
+  return (
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="SplashScreen">
+        {/* SplashScreen which will come once for 5 Seconds */}
+        <Stack.Screen
+          name="SplashScreen"
+          component={Splash}
+          // Hiding header for Splash Screen
+          options={{headerShown: false}}
+        />
+        {/* Auth Navigator: Include Login and Signup */}
+        <Stack.Screen
+          name="Auth"
+          component={Auth}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Home"
+          component={Home}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="RegistrationScreen"
+          component={RegistrationScreen}
+          options={{headerShown: false}}
+        />
+        
+      </Stack.Navigator>
+    </NavigationContainer>
+  );
+};
 
-
-
-
-export default App
+export default App;
